@@ -23,7 +23,8 @@ class VideoController extends Controller
 
     public function category(Category $category)
     {
+        $categoryName = $category->title;
         $videos = $category->videos()->paginate(12);
-        return view('main.videos' , compact('videos'));
+        return view('main.categoryVideos', compact('videos', 'categoryName'));
     }
 }

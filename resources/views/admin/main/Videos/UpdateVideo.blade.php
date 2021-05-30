@@ -52,9 +52,10 @@
                                                                                                 name="categories[]"
                                                                                                 multiple="multiple">
                                                     @foreach($categories as $category)
-                                                        <option
-                                                            value="{{$category->id}}">{{$category->title}}
-                                                        </option>
+                                                        <option value="{{$category->id }}"
+                                                            {{in_array($category->id, $video->categories()
+                                                            ->pluck('category_id')->toArray()) ? 'selected' : '' }}>
+                                                            {{ $category->title }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -67,9 +68,12 @@
                                                 ><select id="select2-tags" class="form-control select"
                                                          name="tags[]"
                                                          multiple="multiple">
-                                                    @foreach($tags as $tag)
-                                                        <option
-                                                            value="{{$tag->id}}" selected>{{$tag->name}}</option>
+
+                                                    @foreach ($tags as $tag)
+                                                        <option value="{{$tag->id }}"
+                                                            {{in_array($tag->id, $video->tags()
+                                                            ->pluck('tag_id')->toArray()) ? 'selected' : '' }}>
+                                                            {{ $tag->name }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>

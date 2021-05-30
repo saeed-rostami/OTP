@@ -27,4 +27,10 @@ class FavoriteController extends Controller
         Auth::user()->favorites()->detach($id);
         return redirect()->back();
     }
+
+    public function index()
+    {
+        $videos = Auth::user()->favorites()->paginate(12);
+        return view('main.user.favorites', compact('videos'));
+    }
 }

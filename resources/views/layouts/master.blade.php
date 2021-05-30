@@ -1,10 +1,12 @@
 <!doctype html>
 <html>
-@include('main.partials.head')
+@include('layouts.head')
 <body>
-@include('main.partials.header')
-@include('main.partials.categoriesHeader')
+@include('layouts.header')
+@include('layouts.categoriesHeader')
 @yield('content')
-@include('main.partials.footer')
+@include('layouts.footer')
+@include('main.partials._sessionMessages')
+
 </body>
 </html>

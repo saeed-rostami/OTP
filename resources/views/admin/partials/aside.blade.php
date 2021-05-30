@@ -34,12 +34,16 @@
                 <a class="" href="{{ route('Admin-Comment-Index') }}">
                     <i class="icon_genius"></i>
                     <span>Comments</span>
+                    <span class="badge bg-important">{{$comments->count()}}</span>
+
                 </a>
             </li>
             <li>
-                <a class="" href="chart-chartjs.html">
+                <a class="" href="{{route('Admin-Request-Index')}}">
+
                     <i class="icon_piechart"></i>
                     <span>Requests</span>
+                    <span class="badge bg-important">{{$requests->count()}}</span>
 
                 </a>
 

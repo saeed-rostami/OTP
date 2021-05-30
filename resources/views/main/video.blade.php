@@ -37,19 +37,30 @@
             <div class="col-md-8">
                 <div id="single-page">
                     <div class="content">
-                        <h1 class="title">{{$video->title}} </h1>
+                        {{--<h1 class="title">{{$video->title}} </h1>--}}
                         <div>
-                            <video controls class="w-100 h-100">
-                                <source src="{{asset('storage/' . $video->file)}}">
-                            </video>
+                            {{--<video controls class="w-100 h-100">--}}
+                                {{--<source src="{{asset('storage/' . $video->file)}}">--}}
+                            {{--</video>--}}
+
+                                <video id="player" playsinline controls>
+                                    <source src="{{asset('storage/' . $video->file)}}" type="video/mp4" />
+                                    <source src="/path/to/video.webm" type="video/webm" />
+
+                                    <!-- Captions are optional -->
+                                    <track kind="captions" label="English captions" src="/path/to/captions.vtt" srclang="en" default />
+                                </video>
+
                         </div>
                         <div class="video-share">
                             <ul class="like">
                                 <li><a>{{$video->view}} <i class="fa fa-eye"></i></a></li>
 
+                            <div class="d-flex">
                                 <livewire:like :video="$video"/>
 
                                 <livewire:favorite :video="$video"/>
+                            </div>
 
                             </ul>
 
@@ -83,3 +94,5 @@
         </div>
     </section>
 @endsection
+
+

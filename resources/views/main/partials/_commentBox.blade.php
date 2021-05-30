@@ -1,5 +1,6 @@
 <!-- Comments -->
 <div id="comments" class="post-comments single-comments">
+
     <h3 class="post-box-title"><span>{{$video->approvedComments()->count()}}</span> Comments</h3>
     <ul class="comments-list">
         @foreach($video->approvedComments as $comment)

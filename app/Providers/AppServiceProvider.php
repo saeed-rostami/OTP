@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use App\Models\Category;
+use App\Models\Comment;
+use App\Models\VideoRequest;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
@@ -28,8 +30,17 @@ class AppServiceProvider extends ServiceProvider
     {
         Schema::defaultStringLength(191);
 
-        View::composer(['main.partials.categoriesHeader' , 'main.video'], function ($view) {
-            $view->with('categories' , Category::all());
-       });
+        View::composer(['layouts.categoriesHeader', 'main.video'], function ($view) {
+            $view->with('categories', Category::all());
+        });
+
+
+        View::composer(['admin.partials.header' , 'admin.partials.aside'], function ($view) {
+            $view->with('requests', VideoRequest::query()->whereNull('seen')->get());
+        });
+
+        View::composer(['admin.partials.header' , 'admin.partials.aside'], function ($view) {
+            $view->with('comments', Comment::query()->where('status' , 0)->get());
+        });
     }
 }

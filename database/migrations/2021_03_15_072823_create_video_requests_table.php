@@ -18,6 +18,7 @@ class CreateVideoRequestsTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->string('title', 191);
             $table->text('description');
+            $table->boolean('seen')->default(null)->nullable();
             $table->string('link')->nullable()->default(null);
             $table->timestamps();
 

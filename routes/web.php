@@ -126,6 +126,15 @@ Route::delete('admin-comment-delete/{comment}', [\App\Http\Controllers\Admin\Com
 //SELECT
 Route::post('select/{video}', [\App\Http\Controllers\Admin\VideoController::class, 'selectVideo'])->name('Admin-Video-Select');
 
+//REQUEST
+Route::resource('admin-request', \App\Http\Controllers\Admin\VideoRequestController::class)->names([
+    'index' => 'Admin-Request-Index',
+    'show' => 'Admin-Request-Show',
+    'destroy' => 'Admin-Request-Delete',
+])->only('index' , 'destroy' ,'show');
+
+
+
 
 //LIKE
 Route::post('/like/{video}', [\App\Http\Controllers\LikeController::class, 'like']);
@@ -133,6 +142,7 @@ Route::delete('/like/{video}', [\App\Http\Controllers\LikeController::class, 'un
 
 
 //FAVORITE
+Route::get('/favorites' , [\App\Http\Controllers\FavoriteController::class, 'index'])->name('Favorites');
 Route::post('/favorite/{video}', [\App\Http\Controllers\FavoriteController::class, 'favorite']);
 Route::delete('/favorite/{video}', [\App\Http\Controllers\FavoriteController::class, 'unfavored']);
 
@@ -140,5 +150,7 @@ Route::delete('/favorite/{video}', [\App\Http\Controllers\FavoriteController::cl
 //COMMENT
 Route::post('/comment-store/{video}', [\App\Http\Controllers\CommentController::class, 'store'])->name('Comment-Store');
 
-
+//REQUEST
+Route::get('/video-request' , [\App\Http\Controllers\VideoRequestController::class, 'index'])->name('Video-Request');
+Route::post('/video-request-store', [\App\Http\Controllers\VideoRequestController::class, 'store'])->name('Video-Request-Store');
 

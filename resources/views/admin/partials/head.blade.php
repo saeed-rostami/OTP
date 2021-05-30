@@ -39,14 +39,12 @@
 
 
     <!-- javascripts -->
+    <script type="text/javascript" src="{{asset('js/app.js')}}"></script>
 
     <script src="{{asset('admin/js/jquery.js')}}" type="text/javascript"></script>
-    <script src="{{asset('admin/js/sparklines.js')}}" type="text/javascript"></script>
     <script src="{{asset('admin/js/select2.full.min.js')}}" type="text/javascript"></script>
-
-
+    <script src="{{asset('admin/js/selectmin.js')}}"></script>
     <script src="{{asset('admin/js/jquery-ui-1.10.4.min.js')}}"></script>
-
 
     <script type="text/javascript" src="{{asset('admin/js/jquery-ui-1.9.2.custom.min.js')}}"></script>
 
@@ -55,28 +53,12 @@
     <!-- nice scroll -->
 
     <script src="{{asset('admin/js/jquery.scrollTo.min.js')}}"></script>
-
-    <script src="{{asset('admin/js/jquery.nicescroll.js')}}" type="text/javascript"></script>
-
-    <!--script for this page only-->
-
-    <script src="{{asset('admin/js/jquery.rateit.min.js')}}"></script>
-    <!-- custom select -->
-    <script src="{{asset('admin/js/jquery.customSelect.min.js')}}"></script>
-
+    <script src="{{asset('js/notiflix-aio-2.4.0.min.js')}}"></script>
+    <script src="{{asset('js/sessionMessages.js')}}"></script>
 
     <!--custome script for all page-->
     <script src="{{asset('admin/js/scripts.js')}}"></script>
+    <script src="{{asset('admin/js/jquery.nicescroll.js')}}"></script>
+    @stack('custom.css')
 
-    <!-- custom script for this page-->
-
-    {{--<script src="js/jquery-jvectormap-1.2.2.min.js"></script>--}}
-    {{--<script src="js/jquery-jvectormap-world-mill-en.js"></script>--}}
-    {{--<script src="js/xcharts.min.js"></script>--}}
-    {{--<script src="js/jquery.autosize.min.js"></script>--}}
-    {{--<script src="js/jquery.placeholder.min.js"></script>--}}
-    {{--<script src="js/gdp-data.js"></script>--}}
-    {{--<script src="js/morris.min.js"></script>--}}
-    {{--<script src="js/charts.js"></script>--}}
-    {{--<script src="js/jquery.slimscroll.min.js"></script>--}}
 </head>

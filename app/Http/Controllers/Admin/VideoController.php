@@ -43,6 +43,9 @@ class VideoController extends Controller
      */
     public function store(VideoRequest $request)
     {
+        $tags = $request->tags;
+        $this->storeTag($tags);
+
         if (is_null(Video::selected()->first()))
             $selected = 1;
         else {
@@ -69,11 +72,15 @@ class VideoController extends Controller
 
         $video->save();
 
+//        STORE CATEGORIES
         $categories = $request->categories;
         $video->categories()->attach((array)$categories);
 
-        $tags = $request->tags;
-        $video->tags()->attach((array)$tags);
+
+
+//        ATTACH TAGS
+        $attachableTags = $this->attachTag($tags);
+        $video->tags()->attach((array)$attachableTags);
 
         return redirect()->route('Admin-Video-Index')->with([
             'message' => 'ویدئو جدید ایجاد شد'
@@ -104,7 +111,7 @@ class VideoController extends Controller
         $categories = Category::all();
         $tags = Tag::all();
         $video = Video::query()->find($id);
-        return view('admin.main.Videos.UpdateVideo', compact('video', 'categories' , 'tags'));
+        return view('admin.main.Videos.UpdateVideo', compact('video', 'categories', 'tags'));
     }
 
     /**
@@ -116,6 +123,9 @@ class VideoController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $tags = $request->tags;
+        $this->storeTag($tags);
+
         $video = Video::query()->find($id);
         if ($request->file('file')) {
             $path = 'uploads/videos' . date('Y/M/D');
@@ -132,7 +142,16 @@ class VideoController extends Controller
                 'description' => $request->description,
             ]);
         }
+
         $video->save();
+        //        ATTACH CATEGORIES
+        $categories = $request->categories;
+        $video->categories()->sync((array)$categories);
+
+        //        ATTACH TAGS
+        $syncableTags = $this->syncTag($tags, $video->id);
+        $video->tags()->sync((array)$syncableTags);
+
         return redirect()->route('Admin-Video-Index')->with([
             'message' => 'ویدئو مورد نظر با موفقیت تغییر شد'
         ]);
@@ -159,7 +178,7 @@ class VideoController extends Controller
         ]);
     }
 
-    public function selectVideo(Video $video)
+    protected function selectVideo(Video $video)
     {
         $this->updateSelectedVideo();
         $video->update([
@@ -179,5 +198,55 @@ class VideoController extends Controller
             'selected_video' => 0
         ]);
         $selectedVideo->save();
+    }
+
+    protected function storeTag($tags)
+    {
+        $existsTags = Tag::query()->pluck('id')->toArray();
+        if ($tags) {
+            foreach ($tags as $tag) {
+                if (!in_array($tag, $existsTags)) {
+                    Tag::query()->create([
+                        'name' => $tag
+                    ]);
+                }
+            }
+        }
+    }
+
+    protected function attachTag($tags)
+    {
+        if ($tags) {
+            $attachableTags = [];
+            foreach ($tags as $tag) {
+                $attachableTags[] = Tag::query()->where('name', $tag)->pluck('id')->first();
+            }
+
+            $attachableTags = array_filter($attachableTags, 'strlen');
+            return $attachableTags;
+        }
+    }
+
+    protected function syncTag($tags, $video)
+    {
+//        TODO UPDATE VIDEO TAG ISSUE
+        $videoTags = Video::query()->find($video);
+        // dd($videoTags->tags()->pluck('tags.id')->toArray());
+        if ($tags) {
+            $syncTags = [];
+            foreach ($tags as $tag) {
+                $syncTags[] = $videoTags
+                    ->tags()
+                    // ->where('tags.id' , '=' , $tag)
+                    ->pluck('tags.id')
+                    ->first();
+            }
+
+
+            $syncTags = array_filter($syncTags, 'strlen');
+            dd($syncTags);
+
+            return $syncTags;
+        }
     }
 }

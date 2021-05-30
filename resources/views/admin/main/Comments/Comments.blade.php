@@ -4,6 +4,7 @@
 <section id="main-content">
     <section class="wrapper">
         <div class="">
+
         @foreach($comments as $comment)
             <div class="d-flex justify-content-around my-1">
                 <h class="text-dark text-bold">{{$comment->body}}</p>
