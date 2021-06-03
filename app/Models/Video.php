@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Hekmatinasser\Verta\Verta;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -38,10 +39,15 @@ class Video extends Model
 
 
 //    DATE FORMAT
-    public function getCreatedAtAttribute($value)
+//    public function getCreatedAtAttribute($value)
+//    {
+//        $v = new Verta($value);
+//        return $v->format('%B %d، %Y');
+//    }
+
+    public function getCustomDateAttribute()
     {
-        $v = new Verta($value);
-        return $v->format('%B %d، %Y');
+        return Carbon::parse($this->created_at)->diffForHumans();
     }
 
 //    LIKES

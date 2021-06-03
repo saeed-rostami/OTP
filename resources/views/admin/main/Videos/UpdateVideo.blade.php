@@ -70,7 +70,7 @@
                                                          multiple="multiple">
 
                                                     @foreach ($tags as $tag)
-                                                        <option value="{{$tag->id }}"
+                                                        <option
                                                             {{in_array($tag->id, $video->tags()
                                                             ->pluck('tag_id')->toArray()) ? 'selected' : '' }}>
                                                             {{ $tag->name }}</option>
@@ -105,7 +105,7 @@
                                         <div class="form-group">
                                             <!-- Buttons -->
                                             <div class="col-lg-offset-2 col-lg-9">
-                                                <button type="submit" class="btn btn-primary">Publish</button>
+                                                <button type="submit" class="btn btn-primary">Update</button>
                                                 {{--<button type="submit" class="btn btn-danger">Save Draft</button>--}}
                                             </div>
                                         </div>

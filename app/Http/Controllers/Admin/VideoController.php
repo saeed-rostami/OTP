@@ -77,7 +77,6 @@ class VideoController extends Controller
         $video->categories()->attach((array)$categories);
 
 
-
 //        ATTACH TAGS
         $attachableTags = $this->attachTag($tags);
         $video->tags()->attach((array)$attachableTags);
@@ -150,7 +149,7 @@ class VideoController extends Controller
 
         //        ATTACH TAGS
         $syncableTags = $this->syncTag($tags, $video->id);
-        $video->tags()->sync((array)$syncableTags);
+        $video->tags()->attach((array)$syncableTags);
 
         return redirect()->route('Admin-Video-Index')->with([
             'message' => 'ویدئو مورد نظر با موفقیت تغییر شد'
@@ -202,7 +201,7 @@ class VideoController extends Controller
 
     protected function storeTag($tags)
     {
-        $existsTags = Tag::query()->pluck('id')->toArray();
+        $existsTags = Tag::query()->pluck('name')->toArray();
         if ($tags) {
             foreach ($tags as $tag) {
                 if (!in_array($tag, $existsTags)) {
@@ -231,22 +230,16 @@ class VideoController extends Controller
     {
 //        TODO UPDATE VIDEO TAG ISSUE
         $videoTags = Video::query()->find($video);
-        // dd($videoTags->tags()->pluck('tags.id')->toArray());
+        $vtags = $videoTags->tags()->pluck('tags.name')->toArray();
+
+
         if ($tags) {
-            $syncTags = [];
-            foreach ($tags as $tag) {
-                $syncTags[] = $videoTags
-                    ->tags()
-                    // ->where('tags.id' , '=' , $tag)
-                    ->pluck('tags.id')
-                    ->first();
+            $syncTags = array_diff($tags, $vtags);
+            $ids = [];
+            foreach ($syncTags as $tag){
+                $ids[] = Tag::query()->where('name' , $tag)->pluck('id')->first();
             }
-
-
-            $syncTags = array_filter($syncTags, 'strlen');
-            dd($syncTags);
-
-            return $syncTags;
+            return $ids;
         }
     }
 }

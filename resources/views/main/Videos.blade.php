@@ -15,7 +15,7 @@
 
                 <div>
                     <span class="views"><i class="fa fa-eye"></i>{{$video->view}} </span>
-                    <span class="date"><i class="fa fa-clock-o"></i>{{$video->created_at}} </span>
+                    <span class="date"><i class="fa fa-clock-o"></i>{{$video->custom_date}} </span>
                 </div>
             </div>
 

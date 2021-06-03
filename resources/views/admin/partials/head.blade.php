@@ -27,10 +27,11 @@
     <!-- owl carousel -->
     <link href="{{asset('admin/css/owl.carousel.css')}}" type="text/css">
 
-    <link href="{{asset('admin/css/jquery-jvectormap-1.2.2.css')}}" rel="stylesheet">
+    {{--<link href="{{asset('admin/css/jquery-jvectormap-1.2.2.css')}}" rel="stylesheet">--}}
     <!-- Custom styles -->
 
-    <link href="{{asset('admin/css/widgets.css')}}" rel="stylesheet">
+    {{--<link href="{{asset('admin/css/widgets.css')}}" rel="stylesheet">--}}
+    <link href="{{asset('admin/css/line-icons.css')}}" rel="stylesheet">
     <link href="{{asset('admin/css/style.css')}}" rel="stylesheet">
     <link href="{{asset('admin/css/style-responsive.css')}}" rel="stylesheet">
     <link href="{{asset('admin/css/jquery-ui-1.10.4.min.css')}}" rel="stylesheet">
