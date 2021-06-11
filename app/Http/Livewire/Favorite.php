@@ -26,11 +26,11 @@ class Favorite extends Component
     {
         if (Auth::check()) {
             Auth::user()->favorites()->attach($this->videoID);
-            session()->flash('favoriteMessage', ' این ویدئو به علاقه مندی هایتان اضافه شد');
+            session()->flash('favoriteMessage', ' Added to your Favorite list');
 
         }
         else
-            session()->flash('favoriteMessage', 'لطفا به حساب کاربری خود وارد شوید');
+            session()->flash('favoriteMessage', 'Please login');
 
 
     }
@@ -39,10 +39,10 @@ class Favorite extends Component
     {
         if (Auth::check()) {
             Auth::user()->favorites()->detach($this->videoID);
-            session()->flash('favoriteMessage', ' این ویدئو از علاقه مندی هایتان حذف شد');
+            session()->flash('favoriteMessage', ' Removed from your Favorite list');
         }
         else
-            session()->flash('favoriteMessage', 'لطفا به حساب کاربری خود وارد شوید');
+            session()->flash('favoriteMessage', 'Please login');
 
     }
 }

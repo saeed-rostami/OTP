@@ -25,19 +25,19 @@ class Like extends Component
     {
         if (Auth::check()) {
             Auth::user()->likes()->attach($this->videoID);
-             session()->flash('likeMessage', 'شما این ویدئو را می پسندید');
+             session()->flash('likeMessage', 'Liked this video');
 //             return redirect()->to('/');
         } else
-            session()->flash('likeMessage', 'لطفا به حساب کاربری خود وارد شوید');
+            session()->flash('likeMessage', 'Please login');
     }
 
     public function unlike()
     {
         if (Auth::check()) {
             Auth::user()->likes()->detach($this->videoID);
-             session()->flash('likeMessage', 'شما این ویدئو را نمی پسندید');
+             session()->flash('likeMessage', 'Disliked this video');
 //            return redirect()->to('/');
         } else
-            session()->flash('likeMessage', 'لطفا به حساب کاربری خود وارد شوید');
+            session()->flash('likeMessage', 'Please login');
     }
 }

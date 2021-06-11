@@ -43,7 +43,7 @@
                                 {{--<source src="{{asset('storage/' . $video->file)}}">--}}
                             {{--</video>--}}
 
-                                <video id="player" playsinline controls>
+                                <video class="player" playsinline controls>
                                     <source src="{{asset('storage/' . $video->file)}}" type="video/mp4" />
                                     <source src="/path/to/video.webm" type="video/webm" />
 
@@ -90,9 +90,8 @@
 
                 @include('main.partials._commentBox')
 
+
             </div><!-- // col-md-8 //Blog -->
         </div>
     </section>
 @endsection
-
-

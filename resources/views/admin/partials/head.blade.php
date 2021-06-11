@@ -37,10 +37,13 @@
     <link href="{{asset('admin/css/jquery-ui-1.10.4.min.css')}}" rel="stylesheet">
 
     <link href="{{asset('admin/css/select2.min.css')}}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.plyr.io/3.6.8/plyr.css" />
+
 
 
     <!-- javascripts -->
     <script type="text/javascript" src="{{asset('js/app.js')}}"></script>
+    <script type="text/javascript" src="{{asset('js/custom.js')}}"></script>
 
     <script src="{{asset('admin/js/jquery.js')}}" type="text/javascript"></script>
     <script src="{{asset('admin/js/select2.full.min.js')}}" type="text/javascript"></script>
@@ -60,6 +63,8 @@
     <!--custome script for all page-->
     <script src="{{asset('admin/js/scripts.js')}}"></script>
     <script src="{{asset('admin/js/jquery.nicescroll.js')}}"></script>
+    <script src="https://cdn.plyr.io/3.6.8/plyr.js"></script>
+
     @stack('custom.css')
 
 </head>

@@ -6,7 +6,8 @@ window.$ = window.jQuery = require('jquery');
 
 require('notiflix');
 
-// const Plyr = require('plyr');
+import Plyr from 'plyr';
+
 //
 // const player = new Plyr(document.getElementById('player'));
 /**

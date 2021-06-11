@@ -1,6 +1,9 @@
 
 
+
 $(document).ready(function () {
+
+    const player = new Plyr('.player');
 
     var $category_show = $('#main-category-toggler'),
         $main_category = $('#main-category'),

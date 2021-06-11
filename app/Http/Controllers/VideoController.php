@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Video;
+use Illuminate\Database\Eloquent\Builder;
+
 
 class VideoController extends Controller
 {
