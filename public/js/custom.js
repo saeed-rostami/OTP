@@ -3,8 +3,6 @@
 
 $(document).ready(function () {
 
-    const player = new Plyr('.player');
-
     var $category_show = $('#main-category-toggler'),
         $main_category = $('#main-category'),
         $main_category_toggler_close = $('#main-category-toggler-close'),

@@ -31,6 +31,7 @@
 
 
 
+
     <script type="text/javascript" src="{{asset('js/app.js')}}"></script>
     <script src="{{asset('js/jquery-3.2.1.min.js')}}" type="text/javascript"></script>
 
@@ -42,7 +43,12 @@
     <script src="{{asset('js/grid-blog.min.js')}}"></script>
     <script src="{{asset('js/notiflix-aio-2.4.0.min.js')}}"></script>
     <script src="{{asset('js/sessionMessages.js')}}"></script>
+    <script src="{{asset('js/Plyr.js')}}"></script>
+    <script src="{{asset('js/HLS.js')}}"></script>
     <script src="https://cdn.plyr.io/3.6.8/plyr.js"></script>
+
+
+
 
     {{--<script src="{{asset('admin/js/select2.full.min.js')}}"></script>--}}
     {{--<script src="{{asset('admin/js/select2.js')}}"></script>--}}

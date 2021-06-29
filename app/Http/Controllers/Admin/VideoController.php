@@ -7,8 +7,12 @@ use App\Http\Requests\Admin\VideoRequest;
 use App\Models\Category;
 use App\Models\Tag;
 use App\Models\Video;
+use FFMpeg\Format\Video\X264;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use FFMpeg\Filters\Video\VideoFilters;
+use ProtoneMedia\LaravelFFMpeg\Filters\WatermarkFactory;
+use ProtoneMedia\LaravelFFMpeg\Support\FFMpeg;
 
 class VideoController extends Controller
 {
@@ -41,50 +45,66 @@ class VideoController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(VideoRequest $request)
+    public function store(Request $request)
     {
-        $tags = $request->tags;
-        $this->storeTag($tags);
+//        $tags = $request->tags;
+//        $this->storeTag($tags);
+//
+//        if (is_null(Video::selected()->first()))
+//            $selected = 1;
+//        else {
+//            if ($request->filled('selected')) {
+//                $this->updateSelectedVideo();
+//                $selected = 1;
+//            } else
+//                $selected = 0;
+//        }
+//
+//        if ($request->hasFile('file')) {
+//            $path = 'uploads/videos' . date('Y/M/D');
+//            $video = $request->file('file')->store($path, 'public');
+//        }
+//
+//        $video = Video::query()
+//            ->create([
+//                'title' => $request->title,
+//                'link' => $request->title,
+//                'selected_video' => $selected,
+//                'description' => $request->description,
+//                'file' => $video,
+//            ]);
+//
+//        $video->save();
+//
+////        STORE CATEGORIES
+//        $categories = $request->categories;
+//        $video->categories()->attach((array)$categories);
+//
+//
+////        ATTACH TAGS
+//        $attachableTags = $this->attachTag($tags);
+//        $video->tags()->attach((array)$attachableTags);
 
-        if (is_null(Video::selected()->first()))
-            $selected = 1;
-        else {
-            if ($request->filled('selected')) {
-                $this->updateSelectedVideo();
-                $selected = 1;
-            } else
-                $selected = 0;
-        }
-
-        if ($request->hasFile('file')) {
-            $path = 'uploads/videos' . date('Y/M/D');
-            $video = $request->file('file')->store($path, 'public');
-        }
-
-        $video = Video::query()
-            ->create([
-                'title' => $request->title,
-                'link' => $request->title,
-                'selected_video' => $selected,
-                'description' => $request->description,
-                'file' => $video,
-            ]);
-
-        $video->save();
-
-//        STORE CATEGORIES
-        $categories = $request->categories;
-        $video->categories()->attach((array)$categories);
+//        return redirect()->route('Admin-Video-Index')->with([
+//            'message' => 'ویدئو جدید ایجاد شد'
+//        ]);
 
 
-//        ATTACH TAGS
-        $attachableTags = $this->attachTag($tags);
-        $video->tags()->attach((array)$attachableTags);
+        $path = asset('done.mp4');
+        $midBitrate = (new X264)->setKiloBitrate(500);
+        $highBitrate = (new X264)->setKiloBitrate(1000);
 
-        return redirect()->route('Admin-Video-Index')->with([
-            'message' => 'ویدئو جدید ایجاد شد'
-        ]);
+
+        FFMpeg::fromDisk('public')
+            ->open('test.mp4')
+            ->exportForHLS()
+            ->addFormat($midBitrate)
+            ->addFormat($highBitrate)
+            ->toDisk('public')
+            ->save('done.m3u8');
+
     }
+
 
     /**
      * Display the specified resource.
@@ -236,8 +256,8 @@ class VideoController extends Controller
         if ($tags) {
             $syncTags = array_diff($tags, $vtags);
             $ids = [];
-            foreach ($syncTags as $tag){
-                $ids[] = Tag::query()->where('name' , $tag)->pluck('id')->first();
+            foreach ($syncTags as $tag) {
+                $ids[] = Tag::query()->where('name', $tag)->pluck('id')->first();
             }
             return $ids;
         }
